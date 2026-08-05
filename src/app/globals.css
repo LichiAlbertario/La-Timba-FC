@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f6fa;
+  --foreground: #141a33;
+
+  /* Identidad La Timba FC */
+  --color-timba-navy: #1e2a54;
+  --color-timba-navy-dark: #10162e;
+  --color-timba-navy-light: #2c3b74;
+  --color-timba-blue: #5b7fe0;
+  --color-timba-blue-dark: #3a52b4;
+  --color-timba-black: #0b0e1a;
+  --color-timba-white: #ffffff;
+  --color-timba-gold: #c9a24b;
+  --color-timba-gold-light: #e2c47a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+
+  --color-timba-navy: var(--color-timba-navy);
+  --color-timba-navy-dark: var(--color-timba-navy-dark);
+  --color-timba-navy-light: var(--color-timba-navy-light);
+  --color-timba-blue: var(--color-timba-blue);
+  --color-timba-blue-dark: var(--color-timba-blue-dark);
+  --color-timba-black: var(--color-timba-black);
+  --color-timba-white: var(--color-timba-white);
+  --color-timba-gold: var(--color-timba-gold);
+  --color-timba-gold-light: var(--color-timba-gold-light);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--color-timba-gold);
+  color: var(--color-timba-navy-dark);
+}
