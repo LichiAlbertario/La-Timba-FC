@@ -23,10 +23,11 @@ export function ImportarPartidosForm({ torneos }: { torneos: Torneo[] }) {
       <div className={`${cardClass} flex flex-col gap-3`}>
         <p className="font-semibold text-timba-navy">1. Pegar partidos</p>
         <p className="text-sm text-black/60">
-          Copiá las filas desde Excel o Google Sheets (sin encabezados) con estas columnas, en este
-          orden: <strong>Fecha, Hora, Rival, Condición</strong> y opcionalmente{" "}
-          <strong>Resultado</strong> (solo si el partido ya se jugó, formato &quot;2-1&quot;). Pegalas
-          acá abajo.
+          Copiá las filas desde Excel o Google Sheets (con o sin encabezados) con estas columnas, en
+          este orden: <strong>Fecha, Hora, Rival, Condición</strong> y opcionalmente{" "}
+          <strong>Resultado</strong> (solo si el partido ya se jugó, formato &quot;2-1&quot; ={" "}
+          <em>goles del Local - goles del Visitante</em>, no siempre La Timba primero). Pegalas acá
+          abajo.
         </p>
 
         <div className="flex flex-col gap-1">
