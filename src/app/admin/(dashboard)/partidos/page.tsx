@@ -10,7 +10,12 @@ const estadoLabel: Record<Partido["estado"], string> = {
   suspendido: "Suspendido",
 };
 
-export default async function PartidosPage() {
+export default async function PartidosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ importados?: string }>;
+}) {
+  const { importados } = await searchParams;
   const supabase = await createClient();
   const [{ data: partidos }, { data: torneos }] = await Promise.all([
     supabase.from("partidos").select("*").order("fecha", { ascending: false }),
@@ -19,7 +24,18 @@ export default async function PartidosPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-bold text-timba-navy-dark">Partidos</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold text-timba-navy-dark">Partidos</h1>
+        <Link href="/admin/partidos/importar" className={linkButtonClass}>
+          Importar desde Excel
+        </Link>
+      </div>
+
+      {importados && (
+        <p className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          Se importaron {importados} {importados === "1" ? "partido" : "partidos"} correctamente.
+        </p>
+      )}
 
       <form action={createPartido} className={`${cardClass} flex flex-col gap-3`}>
         <p className="font-semibold text-timba-navy">Nuevo partido</p>

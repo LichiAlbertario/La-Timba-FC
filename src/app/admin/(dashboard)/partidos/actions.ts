@@ -1,7 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { parsearFilasPartidos } from "@/lib/importarPartidos";
 
 export async function createPartido(formData: FormData) {
   const supabase = await createClient();
@@ -25,6 +27,45 @@ export async function createPartido(formData: FormData) {
 
   revalidatePath("/admin/partidos");
   revalidatePath("/fixture");
+}
+
+export async function importarPartidos(formData: FormData) {
+  const torneo_id = String(formData.get("torneo_id") ?? "") || null;
+  const texto = String(formData.get("texto") ?? "");
+
+  const filas = parsearFilasPartidos(texto);
+  const validas = filas.filter((f) => f.errores.length === 0);
+
+  if (validas.length === 0) {
+    redirect(
+      `/admin/partidos/importar?error=${encodeURIComponent("No se encontro ninguna fila valida para importar.")}`,
+    );
+  }
+
+  const registros = validas.map((f) => ({
+    torneo_id,
+    fecha: f.fecha,
+    hora: f.hora,
+    rival: f.rival,
+    condicion: f.condicion,
+    goles_favor: f.golesFavor,
+    goles_contra: f.golesContra,
+    estado: f.golesFavor !== null ? "jugado" : "programado",
+  }));
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("partidos").insert(registros);
+
+  if (error) {
+    redirect(`/admin/partidos/importar?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath("/admin/partidos");
+  revalidatePath("/fixture");
+  revalidatePath("/resultados");
+  revalidatePath("/estadisticas");
+  revalidatePath("/");
+  redirect(`/admin/partidos?importados=${validas.length}`);
 }
 
 export async function updatePartido(id: string, formData: FormData) {
