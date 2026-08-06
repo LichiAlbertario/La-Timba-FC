@@ -34,7 +34,7 @@ export default async function EditarPartidoPage({
     await Promise.all([
       supabase.from("partidos").select("*").eq("id", id).maybeSingle<Partido>(),
       supabase.from("torneos").select("*").order("fecha_inicio", { ascending: false }),
-      supabase.from("jugadores").select("*").eq("activo", true).order("numero", { ascending: true }),
+      supabase.from("jugadores").select("*").order("numero", { ascending: true }),
       supabase
         .from("eventos_partido")
         .select("*")
@@ -161,6 +161,7 @@ export default async function EditarPartidoPage({
                 <option key={j.id} value={j.id}>
                   {j.numero != null ? `#${j.numero} ` : ""}
                   {nombreCompleto(j)}
+                  {!j.activo ? " (inactivo)" : ""}
                 </option>
               ))}
             </select>
