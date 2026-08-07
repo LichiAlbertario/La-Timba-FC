@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Footer } from "@/components/site/Footer";
 import { MobileNav } from "@/components/site/MobileNav";
 import { FotosLink, SidebarNav } from "@/components/site/SidebarNav";
 
@@ -40,6 +41,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       >
         <MobileNav />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
+        <Footer />
       </div>
     </div>
   );
