@@ -71,7 +71,7 @@ export default async function InicioPage({
       />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-start">
-        <div className="flex flex-col gap-6">
+        <div className="order-2 flex flex-col gap-6 md:order-1">
           <div className={cardClass}>
             <p className={`${eyebrowClass} mb-4 flex items-center gap-2`}>
               <Trophy size={16} className={eyebrowIconClass} /> Balance
@@ -138,7 +138,7 @@ export default async function InicioPage({
           </div>
         </div>
 
-        <div className="relative flex flex-col overflow-hidden rounded-3xl bg-timba-navy-dark text-center text-white shadow-lg">
+        <div className="order-1 relative flex flex-col overflow-hidden rounded-3xl bg-timba-navy-dark text-center text-white shadow-lg md:order-2">
           <Image
             src="/proximo-partido-bg.jpg"
             alt=""
@@ -220,7 +220,7 @@ export default async function InicioPage({
           {/* dark card keeps the lighter timba-blue for contrast against the navy background */}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="order-3 flex flex-col gap-6 md:order-3">
           <div className={cardClass}>
             <div className="mb-4 flex items-center justify-between">
               <p className={eyebrowClass}>Próximos partidos</p>
